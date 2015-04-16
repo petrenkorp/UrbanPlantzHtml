@@ -1,0 +1,135 @@
+html {
+	height: 100%;
+	overflow: hidden;
+}
+
+body {
+	height: 100%;
+}
+
+a:hover {
+	cursor: pointer;
+}
+
+/*
+ *
+ * DATA WINDOW
+ * (the left side of the thing)
+ *
+ */
+
+#dataWindow {
+	height: calc(30% - 55px);
+	background: rgba(0, 0, 0, 0.8);
+	position: relative;
+	color: rgba(255, 255, 255, 1);
+	
+	transition: top 1s;
+	-webkit-transition: top 500ms;
+}
+
+#dataListWrapper {
+	height: 100%;
+	max-height: 100%;
+	/*overflow: hidden;*/
+	position: relative;
+}
+
+#dataList {
+	/*width: 100%;*/
+	height: 90%;
+	/*max-height: 82%;*/
+	/*background: rgba(255, 255, 255, 0.5);*/
+	margin: 5px auto;
+	border-radius: 5px;
+	/*position: relative;*/
+	padding: 5px;
+	/*overflow: hidden;*/
+	white-space: nowrap;
+	float: left;
+}
+
+
+
+.dataListItem {
+	display: inline-block;
+	/*float: left;*/
+	width: 250px;
+	height: 90%;
+	background: rgba(0, 0, 0, 0.5);
+	border-radius: 10px;
+	margin: 4px auto 10px auto;
+	border: 3px solid rgb(133, 133, 144);
+	position: relative;
+	cursor: pointer;
+}
+
+/*
+.dataListItem a {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    text-decoration: none; 
+    z-index: 10; 
+    background-color: #FFF; 
+    opacity: 0; 
+    filter: alpha(opacity=1); 
+}
+*/
+
+
+/*
+ *
+ * MAP WINDOW
+ * (the right side of the thing)
+ *
+ */
+
+#mapWindow {
+	width: 100%;
+	height: calc(100% - 55px);
+	position: relative;
+}
+
+
+#mapWindow .loader {
+	display: none;
+	opacity: 0;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.3);
+	background-image: url('ajax-loader.gif');
+	background-position: center;
+	background-size: 50px 50px;
+	background-repeat: no-repeat;
+}
+
+#googleMap {	
+	width: 100%;
+	height: calc(100% - 55px);
+	margin: 0px;
+}
+
+ 
+
+/*
+ *
+ * MEDIA QUERIES
+ *
+ *
+ */
+
+@media (max-width: 767px) {
+	
+}
+
+
+@media (min-width: 768px) {
+
+
+}
