@@ -1,6 +1,7 @@
 var myScroll;
 
 $(document).ready(function(){
+
 	myScroll = new IScroll( '#dataListWrapper', {
 		//disableMouse: true,
 		eventPassthrough: true,
@@ -11,7 +12,10 @@ $(document).ready(function(){
 		scrollbars: true,
 		mouseWheel: true
 	});
-	console.log("yeah");
+	
+	$("#marcsButton").click(function(){
+		console.log("SUP JIGGA!!!");
+	});
 	
 });
 
