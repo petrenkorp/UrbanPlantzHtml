@@ -12,20 +12,33 @@ Required Queries:
 
 PlantNodes
 1. Get all nodes 
+Ex: http://urbanplants.ca/dbConnect.php?table=PlantNodes
+
 2. Get all nodes specific to a PlantType (1,2,3,4,5) on client side 1,2,3,4,5 corresponds to the plant types. )
+Ex: http://urbanplants.ca/dbConnect.php?table=PlantNodes&PlantType=1
+Returns: [{"node_id":"3","lat":"14.1","lng":"72.222","plantType":"1","discoverer":"Huge","confirmer":"MacD"},{"node_id":"4","lat":"41.61","lng":"62.64","plantType":"1","discoverer":"testJoe","confirmer":""}]
 3. Get all nodes within a radius of X kms 
 4. Combination of 2 and 3
 5. ??
 
 PlantTypes
 1. Return full table to client (Client should store full table for reference until table is too large, then do locate query of PlantTypes))
+Ex: http://urbanplants.ca/dbConnect.php?table=PlantType
+Returns: [{"plant_id":"1","name":"Raspberry","sciName":"Rubus"}]
+
 2. Return a specific query based on a PlantNode.  User clicks on Node, which queries based on PlantType id 1, 2 , 3, 4 etc
-3. What is in season, pick to and from dates to limit searchs for fruit.
+3. What is in season, pick to and from dates to limit searches for fruit.
 4. ??
 
 User Table
 1. Login -> client provide display_name & password fields, and response is Yes/No 1/0 
+Ex: http://urbanplants.ca/dbConnect.php?table=Users&display_name=testGoal&password=1234
+Returns: {"Result":"1"}
+
 2. New user -> client provides most fields display_name, password, email
+Ex: http://urbanplants.ca/dbConnect.php?table=Users&display_name=testMagic&password=1234&email=test%40magic.com
+Returns: true
+
 3. ??
 
 
