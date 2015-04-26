@@ -55,6 +55,11 @@ mysql_select_db($dbname);
 switch ($_GET['table']) {
     case "PlantType":
         //echo " <br> PlantType <br>";
+		/*
+		PlantTypes will likely be pre-populated.  However, there could be instances when we require inserting a new planttype. 
+		For now this case just returns a json object with all of the plant types records which will be pulled into memory 
+		on the client to be cached and used to reference information from PlantNode lookups.
+		*/
 		
 		$query = "SELECT * FROM $usertable";
 		$result = mysql_query($query);
@@ -131,17 +136,31 @@ switch ($_GET['table']) {
 				
         break;
     case "Users":
-        //echo "<br>Users<br>".$_GET['email'];
-		
+        /*
+		Add new user -> sign up.  If an email address is in the parameter list, then it is a signup. 
+		Return False or True based on success in inserting new record
+		*/		
 		if (!empty($_GET['email']))
 		{
 			$query = 'INSERT INTO `urbanplants`.`Users` (`user_id`, `email`, `display_name`, `password`, `rank`, `discoveries`, `confirmations`) VALUES (NULL, \'' . $_GET['email'] . '\', \'' . $_GET['display_name'] . '\', \'' . $_GET['password'] . '\', NULL, NULL, NULL);';
-			
+			$result = mysql_query($query);
+			//$json_response = mysql_fetch_array($result, MYSQL_ASSOC);
+			echo json_encode($result);
 		}
+		/*
+		Login Verification, returns Json object: 
+		{"Result":"0"} if login failed 
+		or 
+		{"Result":"1"} if login was successful
+		*/
 		else
 		{
-			$query = "SELECT * FROM $usertable WHERE display_name = '" . $_GET['display_name']."'";
+			$query = "SELECT COUNT(*) AS `Result` FROM `Users` WHERE display_name= '".$_GET['display_name']."' AND password= '".$_GET['password']."'";
+		
+			$result = mysql_query($query);
 			
+			$json_response = mysql_fetch_array($result, MYSQL_ASSOC);
+			echo json_encode($json_response);
 			
 		}
 		
