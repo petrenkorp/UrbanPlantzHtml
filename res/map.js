@@ -66,8 +66,10 @@ function getPlaces(location, loadGif) {
   		}, 200);
 	}
 	
-	poller.fetch(location.lat(), location.lng(), radius, function(data){
-	
+	//poller.fetch(location.lat(), location.lng(), radius, function(data){
+	poller.fetch(1, function(data){
+		
+		/*
 		plantNodes = data;
 
 		//for (var x = 0, len = plantNodes.length; x < len; x++) {
@@ -101,6 +103,10 @@ function getPlaces(location, loadGif) {
   		});
 		
 		displayNearestPlants();
+		*/
+
+		console.log(data);
 	});
 	
 }
+

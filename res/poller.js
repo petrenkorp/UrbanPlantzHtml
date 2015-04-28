@@ -1,5 +1,6 @@
 var poller;
 
+/*
 //DUMMY POLLER - uses dummy data for testing
 poller = (function( $ ) {
 
@@ -38,13 +39,13 @@ poller = (function( $ ) {
         "Ed" : {
         	"userName" : "Ed",
             "joined" : "04/07/2015",
-            "confirmed" : true,
+            "confirmations" : 5,
             "discoveries" : 12,
         },
         "Marc" : {
         	"userName" : "Marc",
             "joined" : "04/07/2015",
-            "confirmed" : true,
+            "confirmations" : 7,
             "discoveries" : 42,
         },
     };
@@ -57,6 +58,7 @@ poller = (function( $ ) {
             "latitude" : 43.652900,
             "longitude" : -79.443800,
             //"discovererUser" : users["Ed"],
+            //"confirmerUser" : users["Marc"],
             //"plantType" : plantTypes["blueberry"],
             "timesVisited" : 5,
         },
@@ -66,6 +68,7 @@ poller = (function( $ ) {
             "latitude" : 43.653080,
             "longitude" : -79.443800,
             //"discovererUser" : users["Ed"],
+            //"confirmerUser" : users["Marc"],
             //"plantType" : plantTypes["blueberry"],
             "timesVisited" : 4, 
         },
@@ -75,6 +78,7 @@ poller = (function( $ ) {
             "latitude" : 43.654200,
             "longitude" : -79.444000,
             //"discovererUser" : users["Marc"],
+            //"confirmerUser" : users["Marc"],
             //"plantType" : plantTypes["raspberry"],
             "timesVisited" : 8,
         },
@@ -84,6 +88,7 @@ poller = (function( $ ) {
             "latitude" : 43.653500,
             "longitude" : -79.443400,
             //"discovererUser" : users["Marc"],
+            //"confirmerUser" : users["Marc"],
             //"plantType" : plantTypes["raspberry"],
             "timesVisited" : 8,
         },
@@ -103,6 +108,38 @@ poller = (function( $ ) {
 
 	return {fetch: fetch};
 })( jQuery );
+*/
+
+
+var fuckUp;
+poller = (function( $ ) {
+
+    var fetch = function(plantType, callback) {
+        var paramObj = {
+            "table" : "PlantNodes",
+            //"PlantType" : plantType,
+        };
+        var params = $.param(paramObj);
+        console.log("suppp: " + params);
+
+        $.ajax({
+            url : "http://localhost/UrbanPlantzHtml/dbConnect.php?" + params,
+            dataType: "json"
+        })
+        .done(function (data){
+            callback(data);
+        })
+        .fail(function(data){
+            fuckUp = data;
+        });
+    }
+
+    return {
+        fetch: fetch
+    };
+})(jQuery);
+
+
 
 /* THIS IS THE GOOD POLLER - TO BE USED ONCE THE BACKEND IS UP
 poller = (function( $ ) {
