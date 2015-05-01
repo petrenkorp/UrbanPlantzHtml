@@ -111,16 +111,16 @@ poller = (function( $ ) {
 */
 
 
-var fuckUp;
 poller = (function( $ ) {
 
-    var fetch = function(plantType, callback) {
+    //need to check if plantType exists?
+    //will this work if plantType is null, or "all", or "0"?
+    var fetchNodes = function(plantType, callback) {
         var paramObj = {
             "table" : "PlantNodes",
-            //"PlantType" : plantType,
+            "PlantType" : plantType,
         };
         var params = $.param(paramObj);
-        console.log("suppp: " + params);
 
         $.ajax({
             url : "http://localhost/UrbanPlantzHtml/dbConnect.php?" + params,
@@ -130,12 +130,33 @@ poller = (function( $ ) {
             callback(data);
         })
         .fail(function(data){
-            fuckUp = data;
+            console.log("Error fetching plantNodes: ");
+            console.log(data);
+        });
+    }
+
+     var fetchTypes = function(callback) {
+        var paramObj = {
+            "table" : "PlantType",
+        };
+        var params = $.param(paramObj);
+
+        $.ajax({
+            url : "http://localhost/UrbanPlantzHtml/dbConnect.php?" + params,
+            dataType: "json"
+        })
+        .done(function (data){
+            callback(data);
+        })
+        .fail(function(data){
+            console.log("Error fetching plantType: ");
+            console.log(data);
         });
     }
 
     return {
-        fetch: fetch
+        fetchNodes: fetchNodes,
+        fetchTypes: fetchTypes
     };
 })(jQuery);
 

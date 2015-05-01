@@ -127,7 +127,7 @@ switch ($_GET['table']) {
 		{
 			$query = 'INSERT INTO `urbanplants`.`PlantNodes` (`node_id`, `lat`, `lng`, `plantType`, `discoverer`, `confirmer`) VALUES (NULL, \''. $_GET['lat'] .'\', \''. $_GET['lng'] .'\', \''.$_GET['PlantType'].'\', \''.$_GET['discoverer'].'\', \'\');';
 			$result = mysql_query($query);
-			echo $result; //testing
+			//echo $result; //testing
 			$json_response = array('success' => 'true');
 		}
 		else

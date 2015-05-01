@@ -1,5 +1,9 @@
 var map;
 var plantNodes;
+var plantTypes;
+var plantCategoryIcons = [
+	"berry",
+];
 
 
 (function() {
@@ -18,7 +22,7 @@ var plantNodes;
 		map = new google.maps.Map(document.getElementById("googleMap"), {
 			center: nowhere,
 			zoom: 10,
-			mapTypeId: google.maps.MapTypeId.SATELLITE,
+			mapTypeId: google.maps.MapTypeId.ROADMAP,
 			mapTypeControl: false,
 			panControl: false,
 			zoomControlOptions: {
@@ -35,6 +39,7 @@ var plantNodes;
 		google.maps.event.addListenerOnce(map, 'idle', function(){
 			getMyLocation();
 		});
+
 	}
 
 	google.maps.event.addDomListener(window, 'load', initializeMap);
@@ -67,16 +72,16 @@ function getPlaces(location, loadGif) {
 	}
 	
 	//poller.fetch(location.lat(), location.lng(), radius, function(data){
-	poller.fetch(1, function(data){
+	poller.fetchNodes(0, function(data){
 		
-		/*
+		
 		plantNodes = data;
 
 		//for (var x = 0, len = plantNodes.length; x < len; x++) {
 		plantNodes.forEach(function(x){
-			var ll = new google.maps.LatLng(x.latitude, x.longitude);
+			var ll = new google.maps.LatLng(x.lat, x.lng);
 			var marker = new google.maps.Marker({
-				icon: "img/icons/" + x.plantType.icon + ".png",
+				icon: "img/icons/" + plantCategoryIcons[0] + ".png",
 				position: ll,
 				map: map
 			});
@@ -103,8 +108,11 @@ function getPlaces(location, loadGif) {
   		});
 		
 		displayNearestPlants();
-		*/
+		
+	});
 
+	poller.fetchTypes(function(data){
+		console.log("Printing results of fetchTypes:");
 		console.log(data);
 	});
 	

@@ -10,7 +10,9 @@
     <script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places"></script>
     <script src="res/iscroll.js"></script>
     <script src="res/jquery.touchswipe.js"></script>
+    <script src="res/user.js"></script>
     <script src="res/poller.js"></script>
+    <script src="res/poster.js"></script>
     <script src="res/dom.js"></script>
     <script src="res/map.js"></script>
 
@@ -18,29 +20,36 @@
 
 <body>
 
-        <header>
-            <h1>UrbanPlantz</h1>
-            <button id="marcsButton">Marc's Button</button>
-        </header>
+    <div id="modalAddNode" class="modalFullScreen">
+        <div class="modalWrapper">
+            <select id="addNodeSelect"></select>
+            <button id="addNodeSubmit">Submit Discovery</button>
+            <button id="addNodeCancel">Close</button>
+        </div>
+    </div>
 
-        <div id="dataWindow">
-            <div id="dataListWrapper">
-                <div id="dataList">
-                    <div class="dataListItem">
-                        <p>dataListItem</p>
-                    </div>
+    <header>
+        <h1>UrbanPlantz</h1>
+        <button id="addNode">Add Node</button>
+    </header>
+
+    <div id="dataWindow">
+        <div id="dataListWrapper">
+            <div id="dataList">
+                <div class="dataListItem">
+                    <p>dataListItem</p>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div id="mapWindow">
-            <div id="googleMap">Attempting to load Google Map</div>
-            <!--
-            <input id="pac-input" class="controls" type="text" placeholder="Enter a Location">
-            -->
-            <div class="loader"></div>
-        </div>
-
+    <div id="mapWindow">
+        <div id="googleMap">Attempting to load Google Map</div>
+        <!--
+        <input id="pac-input" class="controls" type="text" placeholder="Enter a Location">
+        -->
+        <div class="loader"></div>
+    </div>
 
 
 </body>
