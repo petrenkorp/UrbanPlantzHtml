@@ -96,8 +96,22 @@ switch ($_GET['table']) {
 			//push the values in the array
 			array_push($json_response,$row_array);
 		}
+
+		// output JSON or JSONP callback
+	    if (array_key_exists('callback', $_GET)){
+	        header('Content-Type: text/javascript; charset=utf8');
+	        header('Access-Control-Allow-Origin: http://www.example.com/');
+	        header('Access-Control-Max-Age: 3628800');
+	        header('Access-Control-Allow-Methods: GET, POST, PUT');
+	        $callback = $_GET['callback'];
+	        echo $callback.'('.json_encode($json_response).');';
+	    }
+	    else {
+	        header('Content-Type: application/json; charset=utf8');
+	        echo json_encode($json_response);
+	    }
 		
-		echo json_encode($json_response);
+		//echo json_encode($json_response);
 		
         break;
     case "PlantNodes":
@@ -151,9 +165,27 @@ switch ($_GET['table']) {
 		}
 		
 		
-		echo json_encode($json_response);
+		//echo json_encode($json_response);
+
+		// output JSON or JSONP callback
+	    if (array_key_exists('callback', $_GET)){
+	        header('Content-Type: text/javascript; charset=utf8');
+	        header('Access-Control-Allow-Origin: http://www.example.com/');
+	        header('Access-Control-Max-Age: 3628800');
+	        header('Access-Control-Allow-Methods: GET, POST, PUT');
+	        $callback = $_GET['callback'];
+	        echo $callback.'('.json_encode($json_response).');';
+	    }
+	    else {
+	        header('Content-Type: application/json; charset=utf8');
+	        echo json_encode($json_response);
+	    }
 				
         break;
+
+
+
+
     case "Users":
         /*
 		Add new user -> sign up.  If an email address is in the parameter list, then it is a signup. 

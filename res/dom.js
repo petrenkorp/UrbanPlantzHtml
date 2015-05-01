@@ -17,14 +17,9 @@ $(document).ready(function(){
 	//will we need to do this again, if the user ever adds a new plant type?
 		//nah - it'll have to be verified by someone else, right?
 		//they'll have to close and restart the app to refresh it, in the unlikely event that they're adding plant types
-	poller.fetchTypes(function(data){
-		plantTypes = data;
-
-		//populate the drop-down menu in the addNode popup
-		plantTypes.forEach(function(element, index){
-			$("#addNodeSelect").append($("<option value='" + plantTypes[index].plant_id + "'>" + plantTypes[index].name + "</option>"));
-		});
-	});
+	poller.fetchTypes(typesCallback);
+		
+	
 	
 	$("#addNode").click(function(){
 		$("#modalAddNode").css("display", "inline-block");
@@ -39,7 +34,8 @@ $(document).ready(function(){
 				$("#addNodeSelect").val(),	//plantType
 				lat, 	//lat
 				lng, 	//lng
-				user.name 	//discoverer
+				user.name, 	//discoverer
+				addNodeCallback	//callback
 			);
 		});
 		
@@ -51,6 +47,21 @@ $(document).ready(function(){
 	
 });
 
+function addNodeCallback(data) {
+	user.discoveries++;
+    $("#modalAddNode").css("display", "none");
+    console.log("Successfully added");
+}
+
+
+function typesCallback(data) {
+	plantTypes = data;
+
+	//populate the drop-down menu in the addNode popup
+	plantTypes.forEach(function(element, index){
+		$("#addNodeSelect").append($("<option value='" + plantTypes[index].plant_id + "'>" + plantTypes[index].name + "</option>"));
+	});
+}
 
 function resetIScroll() {
 	myScroll.scrollTo( 0, 0, 0);

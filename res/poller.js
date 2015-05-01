@@ -124,7 +124,8 @@ poller = (function( $ ) {
 
         $.ajax({
             url : "http://localhost/UrbanPlantzHtml/dbConnect.php?" + params,
-            dataType: "json"
+            //url: "http://urbanplants.ca/dbConnect.php?" + params,
+            dataType: "jsonp"
         })
         .done(function (data){
             callback(data);
@@ -143,7 +144,8 @@ poller = (function( $ ) {
 
         $.ajax({
             url : "http://localhost/UrbanPlantzHtml/dbConnect.php?" + params,
-            dataType: "json"
+            //url: "http://urbanplants.ca/dbConnect.php?" + params,
+            dataType: "jsonp"
         })
         .done(function (data){
             callback(data);

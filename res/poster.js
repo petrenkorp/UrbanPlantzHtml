@@ -4,7 +4,7 @@ var poster;
 
 poster = (function($){
 
-	var addNode = function(plantType, lat, lng, discoverer){
+	var addNode = function(plantType, lat, lng, discoverer, callback){
 		 var paramObj = {
             "table" : "PlantNodes",
             "PlantType" : plantType,
@@ -16,12 +16,11 @@ poster = (function($){
 
         $.ajax({
             url : "http://localhost/UrbanPlantzHtml/dbConnect.php?" + params,
-            dataType: "json"
+            //url : "http://urbanplants.ca/dbConnect.php?" + params,
+            dataType: "jsonp"
         })
         .done(function (data){
-            user.discoveries++;
-            $("#modalAddNode").css("display", "none");
-            console.log("Successfully added: " + params);
+            callback(data);
         })
         .fail(function(data){
             console.log("Error adding plantNode with params:" + params);

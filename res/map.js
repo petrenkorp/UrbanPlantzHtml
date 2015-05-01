@@ -23,7 +23,7 @@ var plantCategoryIcons = [
 			center: nowhere,
 			zoom: 10,
 			mapTypeId: google.maps.MapTypeId.ROADMAP,
-			mapTypeControl: false,
+			mapTypeControl: true,
 			panControl: false,
 			zoomControlOptions: {
 				style: google.maps.ZoomControlStyle.SMALL,
@@ -47,6 +47,42 @@ var plantCategoryIcons = [
 })();
 
 
+function nodesCallback(data) {
+	plantNodes = data;
+
+	//for (var x = 0, len = plantNodes.length; x < len; x++) {
+	plantNodes.forEach(function(x){
+		var ll = new google.maps.LatLng(x.lat, x.lng);
+		var marker = new google.maps.Marker({
+			icon: "img/icons/" + plantCategoryIcons[0] + ".png",
+			position: ll,
+			map: map
+		});
+
+		marker.plantData = plantNodes[x];
+		x['marker'] = marker;
+
+		(function(_plantData) {
+			google.maps.event.addListener(marker, 'click', function(){
+				//displayMarkerData(_plantData);
+				toggleDataWindow();
+			});
+		})(marker.plantData);
+
+		//markersArray.push(marker);
+	//}
+	});
+
+	//remove loading gif
+	$( "#mapWindow .loader" ).animate({
+		opacity: 0
+		}, 200, function() {
+			$( "#mapWindow .loader" ).css('display','none');
+		});
+	
+	displayNearestPlants();
+}
+
 
 function getPlaces(location, loadGif) {
 
@@ -54,14 +90,7 @@ function getPlaces(location, loadGif) {
 		plantNodes[x].marker.setMap(null);
 	}
 	plantNodes = [];
-	/*
-	if (markersArray.length > 0) {
-		for (var x = 0, len = markersArray.length; x < len; x++) {
-			markersArray[x].setMap(null);
-		}
-	}*/
-	//markersArray = [];
-	
+
 	var radius = 100; //parseInt($("#radiusSelect").val());
 
 	// loading gif
@@ -71,50 +100,7 @@ function getPlaces(location, loadGif) {
   		}, 200);
 	}
 	
-	//poller.fetch(location.lat(), location.lng(), radius, function(data){
-	poller.fetchNodes(0, function(data){
-		
-		
-		plantNodes = data;
-
-		//for (var x = 0, len = plantNodes.length; x < len; x++) {
-		plantNodes.forEach(function(x){
-			var ll = new google.maps.LatLng(x.lat, x.lng);
-			var marker = new google.maps.Marker({
-				icon: "img/icons/" + plantCategoryIcons[0] + ".png",
-				position: ll,
-				map: map
-			});
-
-			marker.plantData = plantNodes[x];
-			x['marker'] = marker;
-
-			(function(_plantData) {
-				google.maps.event.addListener(marker, 'click', function(){
-					//displayMarkerData(_plantData);
-					toggleDataWindow();
-				});
-			})(marker.plantData);
-
-			//markersArray.push(marker);
-		//}
-		});
-
-		//remove loading gif
-		$( "#mapWindow .loader" ).animate({
-    		opacity: 0
-  		}, 200, function() {
-  			$( "#mapWindow .loader" ).css('display','none');
-  		});
-		
-		displayNearestPlants();
-		
-	});
-
-	poller.fetchTypes(function(data){
-		console.log("Printing results of fetchTypes:");
-		console.log(data);
-	});
+	poller.fetchNodes(0, nodesCallback);
 	
 }
 
